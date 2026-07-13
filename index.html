@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do</title>
+    <!-- Font Awesome Library -->
+    <link rel="stylesheet" href="CSS/all.min.css">
+    <!-- Render All Elements Normally -->
+    <link rel="stylesheet" href="CSS/normalize.css">
+    <!-- Main CSS File -->
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>    
+    <!-- Start Header -->
+     <header>
+        <div class="container">
+            <div class="logo">
+                <div class="icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <h1 class="to-do-title">To Do</h1>
+            </div>
+            
+            <form action="" method="get">
+                <input aria-label="Suchfeld" class="search" type="search" name="searchField" placeholder="Suchen">   
+                <button type="submit" aria-label="Suchen">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+        <nav>
+            <ul>
+                <li><a href="#" title="Benachrichtigungen"><i class="fa-regular fa-bell"></i></a></li>
+                <li><a href="#" title="Profile"><i class="fa-solid fa-circle-user"></i></a></li>
+            </ul>
+        </nav> 
+        </div>
+     </header>
+     <!-- End Header -->
+     <!-- Start Main -->
+      <main>
+        <div class="container">
+            <aside>
+                <ul class="links">
+                    <li>
+                        <a href="#">
+                            <i class="fa-regular fa-sun"></i>
+                            <span class="myDay-span">Mein Tag</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="important-link">
+                            <i class="fa-regular fa-star"></i>
+                            <span class="impotant-span">Wichtig</span>
+                        </a>
+                    </li>
+                    <!-- <li><a href="#">
+                            <i class="fa-regular fa-calendar-days"></i>
+                            <span class="planned-span">Geplant</span>
+                        </a>
+                    </li> -->
+                    <li>
+                        <a href="#" class="finished-link">
+                            <i class="fa-regular fa-circle-check"></i>
+                            <span class="finished-span">Abgeschlossen</span>
+                       </a>
+                </li>
+                </ul>
+            </aside>
+            <section>
+                <div class="section-content">
+                    <div class="open-window"> 
+                        <h2>
+                            <!-- <i class="fa-regular fa-sun"></i> -->
+                            <span></span>
+                        </h2>
+                    </div>
+                    <div class="date-container">
+                        <span></span>
+                    </div>
+                    <div class="input-container">
+                        <form action="">
+                            <input class="input-field" type="text" name="task" aria-label="taskInputFaield" placeholder="Aufgabe hinzufügen">
+                            <button class="btn-hinzufuegen" type="submit" aria-label="Aufgabe hinzufügen">Hinzufügen</button>
+                        </form>
+                    </div>
+                    <div class="task-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Fälligkeitsdatum</th>
+                                    <th>Wichtigkeit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr>
+                                    <td>
+                                        <input type="checkbox" class="check-box" id="checkBox">
+                                        <label for="checkBox">Aufgabe</label>
+                                    </td>
+                                    <td>30.06.2025</td>
+                                    <td><button><i class="fa-regular fa-star"></i></button></td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+            </section>
+        </div>
+      </main>
+     <!-- End Main -->
+      <script src="main.js"></script>
+</body>
+</html>

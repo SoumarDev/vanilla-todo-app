@@ -1,0 +1,392 @@
+/* Start Variables */
+:root {
+    --color-primary: #2564cf;
+    --color-text-header: white;
+    --transition-default: 0.3s;
+    --bg-color-main: #f3f0f1ee;
+    --font-size: 20px;
+}
+/* End Variables */
+/* Start Global Rules */
+*{
+    box-sizing: border-box;
+}
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+/* Small */
+@media (min-width: 768px) {
+    .container {
+        width: 750px;
+    }
+}
+/* Medium */
+@media (min-width: 992px) {
+    .container {
+        width: 970px;
+    }
+}
+/* Large */
+@media (min-width: 1200px) {
+    .container {
+        width: 1170px;
+    }
+} 
+/* End Global Rules */
+/* Start Header */
+header {
+    min-height: 68px;
+}
+header .container{
+    background-color: var(--color-primary);
+    color: var(--color-text-header);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header .logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+header .icon {
+    width: 30px;
+    display: flex;
+    flex-wrap: wrap;
+}
+header .icon span {
+    height: 3px;
+    margin-bottom: 5px;
+    background-color: var(--bg-color-main);
+    transition: var(--transition-default);
+} 
+header .icon:hover {
+    cursor: pointer;
+}
+
+header .icon span:first-child,
+header .icon span:last-child {
+    width: 100%;
+} 
+header .icon span:nth-child(2) {
+    width: 60%;
+}
+header .icon:hover span:nth-child(2){
+    width: 100%;
+    transition: var(--transition-default);
+} 
+
+header div form {
+    position: relative;
+}
+header div form .search {
+    padding: 5px;
+    width: 70px;
+    transition: var(--transition-default);
+}
+header div form .search::placeholder {
+    opacity: 0;
+    transition: var(--transition-default);
+}
+header div form .search:focus {
+    width: 175px;
+    outline: none;
+}
+header div form .search:focus::placeholder {
+    opacity: 1;
+} 
+@media (min-width: 768px) {
+    header div form .search {
+        width: 250px;
+        transition: var(--transition-default);
+    }
+    header div form .search:focus{
+        width: 250px;
+    }
+}
+header div form button {
+    position: absolute;
+    right: 5px;
+    top: 7px;
+    border: none;
+    background-color: var(--color-text-header);
+}
+header div form button:hover {
+    cursor: pointer;
+}
+header div form button i {
+    color: var(--color-primary);
+}
+header div form .search:focus {
+    outline: none;
+}
+header nav ul li {
+    display: inline;
+}
+header nav ul li a{
+    display: inline-block;
+    margin-left: 15px;
+    padding: 8px;
+    font-size: var(--font-size);
+}
+header nav ul li a:hover {
+    background-color: #5073af;
+}
+header i {
+    color: var(--color-text-header);
+}
+/* End Header */
+/* Start Main */
+main .container {
+    padding-left: 0;
+    padding-right: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+main aside {
+    min-height: calc(100vh - 100px); /*- header - mainPading*/
+    flex-direction: column;
+    gap: 30px;
+    display: none;
+}
+main aside.open {
+    display: flex;
+}
+/*Start Sidebar links*/
+main aside ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+main aside ul a {
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    padding: 15px;
+    color: black;
+    transition: var(--transition-default);
+    position: relative;
+    
+}
+main aside ul a:hover::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-left: 3px solid var(--color-primary);
+    height: 100%;
+}
+.important-link::after{
+    content: attr(data-count);
+    margin-left: auto;
+}
+.finished-link::after{
+    content: attr(data-count);
+    margin-left: auto;
+}
+main ul a:hover {
+    background-color: #e5eef9;
+}
+main ul a i {
+    font-size: var(--font-size);
+}
+main ul span {
+    display: none;
+}
+
+/*Tablet*/
+@media (min-width:768px) {
+     main aside {
+        display: flex;
+        width: 80px;
+    }
+}
+/*Desktop*/
+@media (min-width: 992px) {
+    main aside {
+        width: 275px;
+    }
+    main ul span {
+        display: inline;
+    }
+}
+/*End Sidebar links*/
+main section {
+    flex: 1;
+    min-width: 0; /* Browser darf die Section auf 0px schrumpfen wenn nötig */
+    background-color: var(--bg-color-main);
+}
+main section .section-content {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    height: 100%;
+}
+main section .open-window {
+    margin-bottom: 0;
+}
+main section .open-window h2 {
+    margin: 4px;
+    font-size: 20px;
+    font-weight: bold;
+}
+main section .date-container {
+    margin-bottom: 20px;
+}
+main section .date-container span {
+    font-size: 15px;
+    margin-left: 5px;
+}
+main section .input-container {
+    width: 100%;
+}
+main .input-container input[type="text"] {
+    padding: 14px 14px 14px 35px;
+    outline: none;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 5px 8px 6px rgb(118, 113, 113);
+    width: 100%;
+}
+main form {
+    position: relative;
+}
+main form::before {
+    font-family: 'Font Awesome 5 Free';
+    content: '\2b';
+    font-weight: 900;
+    color: var(--color-primary);
+    transform: translate(50%, 70%);
+    position: absolute;
+}
+main .input-container input[type="text"]::placeholder {
+    color: var(--color-primary);
+}
+main form button {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background-color: var(--color-primary);
+    color: var(--bg-color-main);
+    padding: 7px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+/*Table*/
+main .task-table {
+    margin-top: 25px;
+    width: 100%;
+}
+main .task-table table{
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+.task-table thead {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+.task-table thead th {
+    padding: 10px;
+    text-align: left;
+    background-color: var(--color-primary);
+    color: var(--color-text-header);
+}
+.task-table thead th:first-child {width: 40%;}
+.task-table thead th:nth-child(2) {width: 5%;}
+.task-table thead th:nth-child(3) {width: 5%;}
+.task-table thead th:nth-child(4) {width: 20%; text-align: center;}
+.task-table thead th:last-child {width: 20%; text-align: center;}
+
+.task-table tbody td {
+    padding: 10px; 
+}
+.task-table tbody td:nth-child(2), 
+.task-table tbody td:nth-child(3), 
+.task-table tbody td:nth-child(4),
+.task-table tbody td:nth-child(5) {
+    text-align: center;
+}
+/*Browser-Standard ausschalten, um alles slebst zu stylen*/
+.task-table tbody td input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+}
+.task-table tbody td {
+    position: relative;
+    vertical-align: middle;
+}
+/*Eigene Form geben*/
+.task-table tbody td input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--color-primary);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition-default);
+    top: 50%;
+    transform: translateY(-50%); 
+    position: absolute; 
+}
+/* .task-table input[type="checkbox"]:checked {
+    /* background-color: #5073af; 
+} */
+.task-table input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid var(--color-primary);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+.task-table tbody label, 
+.task-table tbody .inputLabel {
+    margin-left: 30px;
+}
+.task-table input[type="checkbox"]:checked + label {
+    text-decoration: line-through;
+}
+.task-table tbody td button {
+    border: none;
+    cursor: pointer;
+}
+.task-table tbody .edit {
+    color: var(--color-primary);
+}
+.task-table tbody .delete {
+    color: red;
+}
+.task-table tbody .star {
+    color: var(--color-primary);
+    color: rgba(233, 211, 20, 0.74);
+}
+.task-table {
+    display: none;
+}
+/* End Main*/
