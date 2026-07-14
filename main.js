@@ -13,12 +13,7 @@ burgerIcon.addEventListener("click", (e) => {
 
 let taskCounter = 0;
 
-function createTd(taskText) {
-// Eindeutige ID für jedes Checkbox-Label-Paar
-    let taskId = "task-" + (++taskCounter);
-
-    let tr = document.createElement("tr");
-    // TD 1: Checkbox + Lable
+function createTd1(taskId, taskText, tr) {
     let td1 = document.createElement("td");
     let checkbox = document.createElement("input");
     checkbox.type = "checkbox";
@@ -28,11 +23,16 @@ function createTd(taskText) {
     let label = document.createElement("label");
     label.htmlFor = taskId; // verbindet Lable mit checkbox
     label.textContent = taskText;
-    // createTd1(taskId, taskText, tr);
+    
     td1.appendChild(checkbox);
     td1.appendChild(label);
+    
+    tr.appendChild(td1);
 
-    // TD 2: Edit
+    return label;
+}
+
+function createTd2(label, tr) {
     let td2 = document.createElement("td");
     let editBtn = document.createElement("button");
     let editIcon = document.createElement("i");
@@ -87,8 +87,10 @@ function createTd(taskText) {
         });
     });
 
+        tr.appendChild(td2);
+}
 
-    // TD 3: Delete
+function createTd3(label, tr) {
     let td3 = document.createElement("td");
     let deleteBtn = document.createElement("button");
     let deleteIcon = document.createElement("i");
@@ -96,6 +98,7 @@ function createTd(taskText) {
     deleteBtn.title = "Löschen";
     deleteBtn.appendChild(deleteIcon);
     td3.appendChild(deleteBtn);
+
     // Tasks aus localStorage und HTML löschen 
     deleteBtn.addEventListener("click", (e) => {
        
@@ -114,6 +117,12 @@ function createTd(taskText) {
         // Array zu String umwandeln und zurück speichern
         localStorage.setItem("tasks", updateTasks.join("|"));
         tr.remove();
+
+        // //  // ImportantTasks aus LoclaStorage entfernen
+        // let savedImportant = localStorage.getItem("importantTasks") || "";
+        // let ImportantArray = savedImportant ? savedImportant.split("|") : [];
+        // importantArray = importantArray.filter(t => t !== deletedText);
+        // localStorage.setItem("importantTasks", importantArray.join("|"));
         // Counter der abgeschlossenen Tasks nach Delet aktulalisieren
         showCountFinished();
 
@@ -122,6 +131,23 @@ function createTd(taskText) {
             taskTable.style.display = "none";
         }
     })
+
+     tr.appendChild(td3);
+}
+function createTd(taskText) {
+// Eindeutige ID für jedes Checkbox-Label-Paar
+    let taskId = "task-" + (++taskCounter);
+    let tr = document.createElement("tr");
+    
+    // // TD 1: Checkbox + Lable
+    let label = createTd1(taskId, taskText, tr);
+    
+    // TD 2: Edit
+    createTd2(label, tr);
+    // TD 3: Delete
+    createTd3(label, tr);
+    
+    
 
     // TD 4: Datum
     let td4 = document.createElement("td");
@@ -139,16 +165,7 @@ function createTd(taskText) {
     starBtn.appendChild(starIcon);
     td5.appendChild(starBtn);
     
-    // Stern beim ersten click (voller Stern)
-    // Beim zweiten click leerer (leerer Stern)
-    // starBtn.addEventListener("click", (e) => {
-    //     starIcon.classList.toggle("fa-regular"); 
-    //     starIcon.classList.toggle("fa-solid"); 
-    // });
-
-    tr.appendChild(td1);
-    tr.appendChild(td2);
-    tr.appendChild(td3);
+    
     tr.appendChild(td4);
     tr.appendChild(td5);
 
