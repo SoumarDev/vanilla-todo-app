@@ -99,31 +99,30 @@ function createTd3(label, tr) {
     deleteBtn.appendChild(deleteIcon);
     td3.appendChild(deleteBtn);
 
-    // Tasks aus localStorage und HTML löschen 
+    // Tasks Berinigung 
     deleteBtn.addEventListener("click", (e) => {
        
-        //Text des zu löschenden Tasks holen
+        // Tasks bereinigen
         let deletedText = label.textContent;
-
-        // Alle gespeicherten Tasks aus localStorage holen (als String)
         let savedTasks = localStorage.getItem("tasks") || "";
-
-        // String zu Array umwandeln
         let savedArray = savedTasks ? savedTasks.split("|") : [];
+        savedArray = savedArray.filter(task => task !== deletedText)
+        localStorage.setItem("tasks", savedArray.join("|"));
         
-        // den gelöschten Tasks herausfiltern 
-        let updateTasks = savedArray.filter(task => task !== deletedText)
+        // ImportantTasks bereinigen
+        let savedImportant = localStorage.getItem("importantTasks") || "";
+        let importantArray = savedImportant ? savedImportant.split("|") : [];
+        importantArray = importantArray.filter(t => t !== deletedText);
+        localStorage.setItem("importantTasks", importantArray.join("|"));
+        
+        // CheckedTasks bereinigen
+        let savedChecked = localStorage.getItem("CheckedTasks") || "";
+        let checkedArray = savedChecked ? savedChecked.split("|") : [];
+        checkedArray = checkedArray.filter(t => t !== deletedText);
+        localStorage.setItem("CheckedTasks", checkedArray.join("|"));
 
-        // Array zu String umwandeln und zurück speichern
-        localStorage.setItem("tasks", updateTasks.join("|"));
         tr.remove();
 
-        // //  // ImportantTasks aus LoclaStorage entfernen
-        // let savedImportant = localStorage.getItem("importantTasks") || "";
-        // let ImportantArray = savedImportant ? savedImportant.split("|") : [];
-        // importantArray = importantArray.filter(t => t !== deletedText);
-        // localStorage.setItem("importantTasks", importantArray.join("|"));
-        // Counter der abgeschlossenen Tasks nach Delet aktulalisieren
         showCountFinished();
 
         // Nach dem Entfernen aller Tasks wird die Tabelle ausgeblendet
