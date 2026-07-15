@@ -13,6 +13,7 @@ burgerIcon.addEventListener("click", (e) => {
 
 let taskCounter = 0;
 
+// TD 1: Checkbox + Lable
 function createTd1(taskId, taskText, tr) {
     let td1 = document.createElement("td");
     let checkbox = document.createElement("input");
@@ -32,6 +33,7 @@ function createTd1(taskId, taskText, tr) {
     return label;
 }
 
+// TD 2: Edit
 function createTd2(label, tr) {
     let td2 = document.createElement("td");
     let editBtn = document.createElement("button");
@@ -90,6 +92,7 @@ function createTd2(label, tr) {
         tr.appendChild(td2);
 }
 
+// TD 3: Delete
 function createTd3(label, tr) {
     let td3 = document.createElement("td");
     let deleteBtn = document.createElement("button");
@@ -133,6 +136,33 @@ function createTd3(label, tr) {
 
      tr.appendChild(td3);
 }
+
+// TD 4: Datum
+function createTd4(tr) {
+
+    let td4 = document.createElement("td");
+    let inputDate = document.createElement("input");
+    inputDate.type = "date";
+    inputDate.style.border = "none";
+    inputDate.style.backgroundColor ="inherit";
+    td4.appendChild(inputDate);
+
+     tr.appendChild(td4);
+};
+
+// TD 5: Stern-Icon
+function createTd5(tr) {
+
+    let td5 = document.createElement("td");
+    let starBtn = document.createElement("button");
+    let starIcon = document.createElement("i");
+    starIcon.className = "fa-regular fa-star star";
+    starBtn.appendChild(starIcon);
+    td5.appendChild(starBtn);
+    
+    tr.appendChild(td5);
+};
+
 function createTd(taskText) {
 // Eindeutige ID für jedes Checkbox-Label-Paar
     let taskId = "task-" + (++taskCounter);
@@ -143,33 +173,19 @@ function createTd(taskText) {
     
     // TD 2: Edit
     createTd2(label, tr);
+    
     // TD 3: Delete
     createTd3(label, tr);
-    
-    
 
     // TD 4: Datum
-    let td4 = document.createElement("td");
-    let inputDate = document.createElement("input");
-    inputDate.type = "date";
-    inputDate.style.border = "none";
-    inputDate.style.backgroundColor ="inherit";
-    td4.appendChild(inputDate);
+    createTd4(tr);
 
     // TD 5: Stern-Icon
-    let td5 = document.createElement("td");
-    let starBtn = document.createElement("button");
-    let starIcon = document.createElement("i");
-    starIcon.className = "fa-regular fa-star star";
-    starBtn.appendChild(starIcon);
-    td5.appendChild(starBtn);
-    
-    
-    tr.appendChild(td4);
-    tr.appendChild(td5);
+    createTd5(tr);
 
     tbody.appendChild(tr);
 }
+
 // Tasks zur Seite Hinzufügen
 function addTask(taskText) {
     taskTable.style.display = "block";
@@ -198,8 +214,6 @@ function showCountFinished() {
     let finishedLink = document.querySelector(".finished-link");
     finishedLink.dataset.count = countFinished() > 0 ? countFinished() : "";
 }
-
-
 
 // Tasks als wichtig markieren bzw. nicht markieren
 // und ins localStorage schreiben
@@ -257,6 +271,7 @@ linksList.addEventListener("click", (e) => {
         mainTitle.textContent = clickedLink.querySelector("span").textContent;    
     }
  })
+ 
 // Beim Neuladen der Seite Tasks aus LocalStorage holen 
 window.onload = function() {
     let savedTasks = localStorage.getItem("tasks");
