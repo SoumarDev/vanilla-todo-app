@@ -261,7 +261,11 @@ tbody.addEventListener("change", (e) => {
     }
 })
 
-// Geclickter Sidebar-Link in Main anzeigen
+// Geclickter Sidebar-Title in Main anzeigen
+// und je nach Sidebar-Title handeln: 
+// - Nur wichtige anzeigen
+// - Nur abgeschlossene anzeigen
+// - Mein Tag, alle anzeigen
 let linksList = document.querySelector(".links");
 let mainTitle = document.querySelector(".section-content .open-window span");
 
@@ -269,7 +273,26 @@ linksList.addEventListener("click", (e) => {
     let clickedLink = e.target.closest("a");
     if (clickedLink) {
         mainTitle.textContent = clickedLink.querySelector("span").textContent;    
-    }
+
+        let rows = document.querySelectorAll(".task-table tbody tr");
+        
+        if(clickedLink.classList.contains("important-link")) {
+            //Nur wichtige anzeigen
+            rows.forEach(row => {
+                let star = row.querySelector(".fa-star");
+                row.style.display = star.classList.contains("fa-solid") ? "" : "none";
+            });
+        } else if (clickedLink.classList.contains("finished-link")) {
+            // Nur abgeschlossene anzeigen
+            rows.forEach(row => {
+                let checkbox = row.querySelector("input[type=checkbox]");
+                row.style.display = checkbox.checked ? "" : "none"; 
+            });
+        } else {
+            // Mein Tag, alle anzeigen
+            rows.forEach(row => {row.style.display = ""});
+        }
+    } 
  })
  
 // Beim Neuladen der Seite Tasks aus LocalStorage holen 
@@ -313,7 +336,7 @@ window.onload = function() {
                     lab.closest("tr").querySelector("input[type=checkbox]").checked = true;
                 };
             });
-        });
+        }); 
     }
     // Count der abgeschlossenen Tasks nach Seiten-Reload behlaten
     showCountFinished();
