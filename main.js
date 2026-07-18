@@ -147,6 +147,13 @@ function createTd4(tr) {
     inputDate.style.backgroundColor ="inherit";
     td4.appendChild(inputDate);
 
+    // Erst speichern wenn User ein Datum auswählt
+    inputDate.addEventListener("change", () => {
+        let savedDate = localStorage.getItem("date") || "";
+        let newDate = savedDate ? savedDate + ">>" + inputDate.value : inputDate.value;
+        localStorage.setItem("date", newDate);
+    })
+    
      tr.appendChild(td4);
 };
 
