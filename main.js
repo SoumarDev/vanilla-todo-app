@@ -350,6 +350,15 @@ window.onload = function() {
     // Count der abgeschlossenen Tasks nach Seiten-Reload behlaten
     showCountFinished();
 
+    // Fälligkeitsdatum beim Reload wiederherstellen
+    let dates = JSON.parse(localStorage.getItem("dates") || "{}");
+    document.querySelectorAll(".task-table label").forEach(label => {
+        let date = dates[label.textContent];
+        if (date) {
+            label.closest("tr").querySelector("input[type=date]").value = date;
+        }
+    });
+    
     // Main Tag Standard anzeigen
     let myDaySpan = document.querySelector(".myDay-span");
     mainTitle.textContent = myDaySpan.textContent;
