@@ -149,10 +149,11 @@ function createTd4(tr) {
 
     // Erst speichern wenn User ein Datum auswählt
     inputDate.addEventListener("change", () => {
-        let savedDate = localStorage.getItem("date") || "";
-        let newDate = savedDate ? savedDate + ">>" + inputDate.value : inputDate.value;
-        localStorage.setItem("date", newDate);
-    })
+        let taskText = inputDate.closest("tr").querySelector("label").textContent;
+        let dates = JSON.parse(localStorage.getItem("dates") || "{}");
+        dates[taskText] = inputDate.value;
+        localStorage.setItem("dates",JSON.stringify(dates));
+    });
     
      tr.appendChild(td4);
 };
@@ -333,6 +334,7 @@ window.onload = function() {
     // Counter der wichtigen Tasks nach dem Seiten-Load behalten
     showIportantCount();
 
+    // Abgeschlossende Tasks wiederherstellen
     let savedCheckedTask = localStorage.getItem("CheckedTasks");
     if (savedCheckedTask) {
         let checkedArray = savedCheckedTask.split("|");
