@@ -124,6 +124,11 @@ function createTd3(label, tr) {
         checkedArray = checkedArray.filter(t => t !== deletedText);
         localStorage.setItem("CheckedTasks", checkedArray.join("|"));
 
+        // Fälligkeitsdatum bereinigen 
+        let dates = JSON.parse(localStorage.getItem("dates") || "{}");
+        delete dates[deletedText];
+        localStorage.setItem("dates", JSON.stringify(dates));
+
         tr.remove();
 
         showCountFinished();
