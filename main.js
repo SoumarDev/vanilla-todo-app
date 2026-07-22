@@ -3,6 +3,38 @@ let form = document.querySelector(".input-container form");
 let tbody = document.querySelector(".task-table tbody");
 let taskTable = document.querySelector(".task-table");
 let burgerIcon = document.querySelector(".logo .icon");
+let searchForm = document.querySelector("header form");
+let inputSearch = document.querySelector("header form .search");
+
+
+
+// Nach Tasks suchen und highlighten
+searchForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    let labelText = document.querySelectorAll(".task-table label");    
+
+    // Vor dem forEach alle zurücksetzen
+    labelText.forEach(label => label.style.backgroundColor = "");
+
+    // Wenn Suchfeld leer ist, dann reset machen
+    if (inputSearch.value === "") return;
+
+    // Dann neu markieren
+    labelText.forEach(label => {
+       if (label.textContent.toLowerCase().includes(inputSearch.value.toLowerCase())) {
+        label.style.backgroundColor = "yellow";
+       }; 
+    });
+});
+
+// Highlights entfernen wenn Feld lerr
+inputSearch.addEventListener("input", (e) => {
+    if (e.target.value === "") {
+        let labelText = document.querySelectorAll(".task-table label");
+        labelText.forEach(label => label.style.backgroundColor = ""); 
+    }
+})
 
 // Burger-Menü ist nur für Mobile gedacht,
 // auf Tablet/Desktop bleibt die Sidebar immer sichtbar.
