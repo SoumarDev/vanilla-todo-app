@@ -5,8 +5,7 @@ let taskTable = document.querySelector(".task-table");
 let burgerIcon = document.querySelector(".logo .icon");
 let searchForm = document.querySelector("header form");
 let inputSearch = document.querySelector("header form .search");
-
-
+const SEP = "|";
 
 // Nach Tasks suchen und highlighten
 searchForm.addEventListener("submit", (e) => {
@@ -106,9 +105,9 @@ function createTd2(label, tr) {
 
                 // LocalStorage akualisieren
                 let savedTasks = localStorage.getItem("tasks") || "";
-                let tasksArray = savedTasks ? savedTasks.split("|") : [];
+                let tasksArray = savedTasks ? savedTasks.split(SEP) : [];
                 let updatedTasks = tasksArray.map(task => task === oldTex ? newTex : task);
-                localStorage.setItem("tasks", updatedTasks.join("|")); 
+                localStorage.setItem("tasks", updatedTasks.join(SEP)); 
             }
         });
 
@@ -140,21 +139,21 @@ function createTd3(label, tr) {
         // Tasks bereinigen
         let deletedText = label.textContent;
         let savedTasks = localStorage.getItem("tasks") || "";
-        let savedArray = savedTasks ? savedTasks.split("|") : [];
+        let savedArray = savedTasks ? savedTasks.split(SEP) : [];
         savedArray = savedArray.filter(task => task !== deletedText)
-        localStorage.setItem("tasks", savedArray.join("|"));
+        localStorage.setItem("tasks", savedArray.join(SEP));
         
         // ImportantTasks bereinigen
         let savedImportant = localStorage.getItem("importantTasks") || "";
-        let importantArray = savedImportant ? savedImportant.split("|") : [];
+        let importantArray = savedImportant ? savedImportant.split(SEP) : [];
         importantArray = importantArray.filter(t => t !== deletedText);
-        localStorage.setItem("importantTasks", importantArray.join("|"));
+        localStorage.setItem("importantTasks", importantArray.join(SEP));
         
         // CheckedTasks bereinigen
         let savedChecked = localStorage.getItem("CheckedTasks") || "";
-        let checkedArray = savedChecked ? savedChecked.split("|") : [];
+        let checkedArray = savedChecked ? savedChecked.split(SEP) : [];
         checkedArray = checkedArray.filter(t => t !== deletedText);
-        localStorage.setItem("CheckedTasks", checkedArray.join("|"));
+        localStorage.setItem("CheckedTasks", checkedArray.join(SEP));
 
         // Fälligkeitsdatum bereinigen 
         let dates = JSON.parse(localStorage.getItem("dates") || "{}");
@@ -274,7 +273,7 @@ tbody.addEventListener("click", (e) => {
 
         // Wichtige Tasks aus localStorage holen
         let saved = localStorage.getItem("importantTasks") || "";
-        let importantArray = saved ? saved.split("|") : [];
+        let importantArray = saved ? saved.split(SEP) : [];
 
         if (isImportant) {
             // hinzufügen
@@ -282,7 +281,7 @@ tbody.addEventListener("click", (e) => {
         } else {
             importantArray = importantArray.filter(t => t !== taskLabel);
         }
-        localStorage.setItem("importantTasks", importantArray.join("|"));
+        localStorage.setItem("importantTasks", importantArray.join(SEP));
     }
     showIportantCount();
     
@@ -294,7 +293,7 @@ tbody.addEventListener("change", (e) => {
         // finishedLink.dataset.count = countFinished() > 0 ? countFinished() : "";   
         showCountFinished();
         let savedCheckedTasks = localStorage.getItem("CheckedTasks") || "";
-        let checkedArray = savedCheckedTasks ? savedCheckedTasks.split("|") : [];
+        let checkedArray = savedCheckedTasks ? savedCheckedTasks.split(SEP) : [];
         let targetTask = e.target.closest("tr").querySelector("label").textContent;
         
         if (e.target.checked) {
@@ -302,7 +301,7 @@ tbody.addEventListener("change", (e) => {
         } else {
             checkedArray = checkedArray.filter(t => t !== targetTask);
         }
-        localStorage.setItem("CheckedTasks", checkedArray.join("|"));  
+        localStorage.setItem("CheckedTasks", checkedArray.join(SEP));  
     }
 })
 
@@ -344,7 +343,7 @@ linksList.addEventListener("click", (e) => {
 window.onload = function() {
     let savedTasks = localStorage.getItem("tasks");
     if (savedTasks) {
-        let tasksArray = savedTasks.split("|").filter(task => task !=="");
+        let tasksArray = savedTasks.split(SEP).filter(task => task !=="");
         tasksArray.forEach((task) => {
             addTask(task);
         });
@@ -354,7 +353,7 @@ window.onload = function() {
     // Wichtige Tasks nach dem load als wichtig anzeigen lassen
     let savedImportant = localStorage.getItem("importantTasks");
     if (savedImportant) {
-        let importantArry = savedImportant.split("|");
+        let importantArry = savedImportant.split(SEP);
         importantArry.forEach((taskText) => {
             let labels = document.querySelectorAll(".task-table label")
             // Label mit diesem Text suchen
@@ -374,7 +373,7 @@ window.onload = function() {
     // Abgeschlossende Tasks wiederherstellen
     let savedCheckedTask = localStorage.getItem("CheckedTasks");
     if (savedCheckedTask) {
-        let checkedArray = savedCheckedTask.split("|");
+        let checkedArray = savedCheckedTask.split(SEP);
         checkedArray.forEach((checkedTask) => {
             let labelToCheck = document.querySelectorAll(".task-table label");
             labelToCheck.forEach(lab => {
@@ -421,7 +420,7 @@ function saveInLocalStorage(taskText) {
     // Prüfen, ob im tasks breits im localStorage 
     // vorhanden sind, diese dann durch komma von neu hinzugefügene Tasks trennen     
     let oldTasks = localStorage.getItem("tasks") || "";
-    let newTasks = oldTasks ? oldTasks + "|" + taskText : taskText;
+    let newTasks = oldTasks ? oldTasks + SEP + taskText : taskText;
     localStorage.setItem("tasks", newTasks);
 }
 // Main Function
