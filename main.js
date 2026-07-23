@@ -99,7 +99,7 @@ function createTd2(label, tr) {
                 saved = true; // verhindert blur-Aktion
                 let oldTex = label.textContent; 
                 let newTex = editInput.value;
-                // label aktualisieren
+                // Label aktualisieren
                 label.textContent = newTex;
                 editInput.replaceWith(label);
 
@@ -108,6 +108,26 @@ function createTd2(label, tr) {
                 let tasksArray = savedTasks ? savedTasks.split(SEP) : [];
                 let updatedTasks = tasksArray.map(task => task === oldTex ? newTex : task);
                 localStorage.setItem("tasks", updatedTasks.join(SEP)); 
+
+                //importantTasks aktualisieren
+                let savedImportant = localStorage.getItem("importantTasks") || "";
+                let importantArr = savedImportant ? savedImportant.split(SEP) : [];
+                let updatedImportant = importantArr.map(t => t === oldTex ? newTex : t);
+                localStorage.setItem("importantTasks", updatedImportant.join(SEP));
+
+                //checkedTasks
+                let savedChecked = localStorage.getItem("checkedTasks") || "";
+                let checkedArr = savedChecked ? savedChecked.split(SEP) : "";
+                let updatedChecked = checkedArr.map(t => t === oldTex ? newTex : t);
+                localStorage.setItem("checkedTasks", updatedChecked.join(SEP)); 
+
+                // Datum-Key umbenennen
+                let dates = JSON.parse(localStorage.getItem("dates") || "{}");
+                if (dates[oldTex]) {
+                    dates[newTex] = dates[oldTex];
+                    delete dates[oldTex];
+                    localStorage.setItem("dates", JSON.stringify(dates));
+                }
             }
         });
 
@@ -150,10 +170,10 @@ function createTd3(label, tr) {
         localStorage.setItem("importantTasks", importantArray.join(SEP));
         
         // CheckedTasks bereinigen
-        let savedChecked = localStorage.getItem("CheckedTasks") || "";
+        let savedChecked = localStorage.getItem("checkedTasks") || "";
         let checkedArray = savedChecked ? savedChecked.split(SEP) : [];
         checkedArray = checkedArray.filter(t => t !== deletedText);
-        localStorage.setItem("CheckedTasks", checkedArray.join(SEP));
+        localStorage.setItem("checkedTasks", checkedArray.join(SEP));
 
         // Fälligkeitsdatum bereinigen 
         let dates = JSON.parse(localStorage.getItem("dates") || "{}");
@@ -292,7 +312,7 @@ tbody.addEventListener("change", (e) => {
         // let finishedLink = document.querySelector(".finished-link");
         // finishedLink.dataset.count = countFinished() > 0 ? countFinished() : "";   
         showCountFinished();
-        let savedCheckedTasks = localStorage.getItem("CheckedTasks") || "";
+        let savedCheckedTasks = localStorage.getItem("checkedTasks") || "";
         let checkedArray = savedCheckedTasks ? savedCheckedTasks.split(SEP) : [];
         let targetTask = e.target.closest("tr").querySelector("label").textContent;
         
@@ -301,7 +321,7 @@ tbody.addEventListener("change", (e) => {
         } else {
             checkedArray = checkedArray.filter(t => t !== targetTask);
         }
-        localStorage.setItem("CheckedTasks", checkedArray.join(SEP));  
+        localStorage.setItem("checkedTasks", checkedArray.join(SEP));  
     }
 })
 
@@ -371,7 +391,7 @@ window.onload = function() {
     showIportantCount();
 
     // Abgeschlossende Tasks wiederherstellen
-    let savedCheckedTask = localStorage.getItem("CheckedTasks");
+    let savedCheckedTask = localStorage.getItem("checkedTasks");
     if (savedCheckedTask) {
         let checkedArray = savedCheckedTask.split(SEP);
         checkedArray.forEach((checkedTask) => {
