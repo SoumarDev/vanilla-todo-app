@@ -117,7 +117,7 @@ function createTd2(label, tr) {
 
                 //checkedTasks
                 let savedChecked = localStorage.getItem("checkedTasks") || "";
-                let checkedArr = savedChecked ? savedChecked.split(SEP) : "";
+                let checkedArr = savedChecked ? savedChecked.split(SEP) : [];
                 let updatedChecked = checkedArr.map(t => t === oldTex ? newTex : t);
                 localStorage.setItem("checkedTasks", updatedChecked.join(SEP)); 
 
@@ -263,11 +263,11 @@ function countImportant() {
     return importantTasks.length;
 }
 
-function showIportantCount() {
+function showImportantCount() {
 // den Count zur Sidebar neben Wichig Span anzeigen
-    let improtantLink = document.querySelector(".important-link");
+    let importantLink = document.querySelector(".important-link");
     let count = countImportant();
-    improtantLink.dataset.count = count > 0 ? count : "";
+    importantLink.dataset.count = count > 0 ? count : "";
 }
 
 function countFinished() {
@@ -303,7 +303,7 @@ tbody.addEventListener("click", (e) => {
         }
         localStorage.setItem("importantTasks", importantArray.join(SEP));
     }
-    showIportantCount();
+    showImportantCount();
     
 })
 // Abgeschlossene Tasks counten
@@ -373,8 +373,8 @@ window.onload = function() {
     // Wichtige Tasks nach dem load als wichtig anzeigen lassen
     let savedImportant = localStorage.getItem("importantTasks");
     if (savedImportant) {
-        let importantArry = savedImportant.split(SEP);
-        importantArry.forEach((taskText) => {
+        let importantArr = savedImportant.split(SEP);
+        importantArr.forEach((taskText) => {
             let labels = document.querySelectorAll(".task-table label")
             // Label mit diesem Text suchen
             labels.forEach(label => {
@@ -388,7 +388,7 @@ window.onload = function() {
         })
     }; 
     // Counter der wichtigen Tasks nach dem Seiten-Load behalten
-    showIportantCount();
+    showImportantCount();
 
     // Abgeschlossende Tasks wiederherstellen
     let savedCheckedTask = localStorage.getItem("checkedTasks");
